@@ -11,6 +11,8 @@ This backend serves the Project Management MVP with FastAPI, static frontend hos
 - `POST /api/logout` clears the current session.
 - `GET /api/board` returns the authenticated user's JSON-backed board.
 - `PUT /api/board` validates and persists the authenticated user's board.
+- `POST /api/ai/test` requires authentication and asks OpenRouter `2+2`.
+- `POST /api/ai/chat` sends the saved board and conversation history to OpenRouter, then optionally persists a validated board replacement.
 - `GET /` serves the statically exported Next.js app from `frontend/out`.
 
 ## Backend packaging
@@ -25,3 +27,5 @@ This backend serves the Project Management MVP with FastAPI, static frontend hos
 ## Notes
 - SQLite data is initialized at `data/pm.db`; users own one JSON-backed board.
 - Authentication sessions remain in memory; the frontend uses the board APIs for persistence.
+- OpenRouter uses `openai/gpt-oss-120b` and requires `OPENROUTER_API_KEY`.
+- AI responses use a strict `{ response, boardUpdate }` schema; `boardUpdate` is either null or a complete validated board.

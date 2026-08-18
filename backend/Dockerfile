@@ -13,7 +13,8 @@ FROM python:3.12-slim
 WORKDIR /app
 
 RUN pip install --no-cache-dir uv \
-    && uv pip install --system --no-cache "fastapi>=0.109.0" "uvicorn[standard]>=0.24.0"
+    && uv pip install --system --no-cache "fastapi>=0.109.0" "httpx>=0.27.0" \
+    "python-dotenv>=1.0.0" "uvicorn[standard]>=0.24.0"
 
 COPY backend/ /app/backend/
 COPY --from=frontend-builder /app/frontend/out /app/frontend/out

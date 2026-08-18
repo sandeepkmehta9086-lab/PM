@@ -12,7 +12,7 @@ export default defineConfig({
   },
   webServer: {
     command:
-      'uv run --with fastapi --with "uvicorn[standard]" uvicorn main:app --app-dir ../backend --host 127.0.0.1 --port 3000',
+      "uv run --project ../backend python -m uvicorn main:app --app-dir ../backend --host 127.0.0.1 --port 3000",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: true,
     timeout: 120_000,

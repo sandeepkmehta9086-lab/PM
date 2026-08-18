@@ -33,11 +33,39 @@ test("logs out and returns to sign in", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Sign in" })).toBeVisible();
 });
 
+test("shows an AI response and refreshes the board after an AI update", async ({
+  page,
+}) => {
+  await signIn(page);
+  const updatedBoard = await page.evaluate(async () => {
+    const board = await fetch("/api/board").then((response) => response.json());
+    board.columns[0].title = "AI planned";
+    return board;
+  });
+  await page.route("**/api/ai/chat", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        response: "I renamed the first column.",
+        boardUpdate: updatedBoard,
+      }),
+    });
+  });
+
+  await page.getByLabel("Message").fill("Rename the first column");
+  await page.getByRole("button", { name: "Send" }).click();
+
+  await expect(page.getByText("I renamed the first column.")).toBeVisible();
+  await expect(page.getByText("Board updated")).toBeVisible();
+  await expect(page.getByLabel("Column title").first()).toHaveValue("AI planned");
+});
+
 test("adds a card to a column", async ({ page }) => {
   await signIn(page);
+  const title = `Playwright card ${Date.now()}`;
   const firstColumn = page.locator('[data-testid^="column-"]').first();
   await firstColumn.getByRole("button", { name: /add a card/i }).click();
-  await firstColumn.getByPlaceholder("Card title").fill("Playwright card");
+  await firstColumn.getByPlaceholder("Card title").fill(title);
   await firstColumn.getByPlaceholder("Details").fill("Added via e2e.");
   const saveRequest = page.waitForResponse(
     (response) =>
@@ -46,15 +74,17 @@ test("adds a card to a column", async ({ page }) => {
   );
   await firstColumn.getByRole("button", { name: /add card/i }).click();
   await saveRequest;
-  await expect(firstColumn.getByText("Playwright card")).toBeVisible();
+  await expect(firstColumn.getByText(title)).toBeVisible();
   await page.reload();
-  await expect(page.getByText("Playwright card")).toBeVisible();
+  await expect(page.getByText(title)).toBeVisible();
 });
 
 test("moves a card between columns", async ({ page }) => {
   await signIn(page);
-  const card = page.getByTestId("card-card-1");
-  const targetColumn = page.getByTestId("column-col-review");
+  const sourceColumn = page.locator('[data-testid^="column-"]').first();
+  const card = sourceColumn.locator('[data-testid^="card-"]').first();
+  const cardId = await card.getAttribute("data-testid");
+  const targetColumn = page.locator('[data-testid^="column-"]').nth(1);
   const cardBox = await card.boundingBox();
   const columnBox = await targetColumn.boundingBox();
   if (!cardBox || !columnBox) {
@@ -72,5 +102,5 @@ test("moves a card between columns", async ({ page }) => {
     { steps: 12 }
   );
   await page.mouse.up();
-  await expect(targetColumn.getByTestId("card-card-1")).toBeVisible();
+  await expect(targetColumn.getByTestId(cardId!)).toBeVisible();
 });

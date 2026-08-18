@@ -42,10 +42,13 @@ A working MVP of the frontend has been built and is already in frontend. This is
 - Fake authentication uses `user` / `password`, HTTP-only in-memory session cookies, and a frontend login gate.
 - SQLite stores one JSON-backed board for each user, and the backend exposes authenticated board read/write APIs.
 - The frontend loads and saves board changes through the authenticated board APIs.
+- The backend includes a verified authenticated OpenRouter connectivity endpoint using `openai/gpt-oss-120b`.
+- The backend accepts structured AI chat responses and persists an optional full-board update.
+- The frontend includes a chat sidebar that displays AI replies and applies returned board updates immediately.
 
 ## Next work
 
-- Add the OpenRouter-backed AI connectivity layer.
+- The MVP implementation is complete.
 
 ## Color Scheme
 

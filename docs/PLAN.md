@@ -177,10 +177,10 @@ Part 8: AI connectivity
 - Build a simple backend AI test endpoint that sends a `2+2` prompt and returns the result.
 
 Checklist:
-- [ ] Add OpenRouter client support in backend
-- [ ] Read `OPENROUTER_API_KEY` from environment
-- [ ] Add a simple AI test endpoint
-- [ ] Verify the backend can call the AI service
+- [x] Add OpenRouter client support in backend
+- [x] Read `OPENROUTER_API_KEY` from environment
+- [x] Add a simple AI test endpoint
+- [x] Verify the backend can call the AI service
 
 Tests:
 - Backend unit test for the AI request/response logic, using a mock OpenRouter call.
@@ -198,11 +198,11 @@ Part 9: Structured AI board updates
 - Parse the AI response safely and apply board updates when provided.
 
 Checklist:
-- [ ] Define the structured AI response contract
-- [ ] Send board JSON and history with each AI request
-- [ ] Parse and validate the AI response
-- [ ] Update the board when the AI returns changes
-- [ ] Add backend tests for parsing and update behavior
+- [x] Define the structured AI response contract
+- [x] Send board JSON and history with each AI request
+- [x] Parse and validate the AI response
+- [x] Update the board when the AI returns changes
+- [x] Add backend tests for parsing and update behavior
 
 Tests:
 - Unit tests for structured response parsing.
@@ -222,11 +222,11 @@ Part 10: AI chat sidebar
 - Keep the chat visually integrated with the existing Kanban experience.
 
 Checklist:
-- [ ] Add chat sidebar UI and input controls
-- [ ] Connect the chat UI to the backend AI endpoint
-- [ ] Display conversation history
-- [ ] Apply board updates and refresh the board state
-- [ ] Add UI and E2E tests for the chat feature
+- [x] Add chat sidebar UI and input controls
+- [x] Connect the chat UI to the backend AI endpoint
+- [x] Display conversation history
+- [x] Apply board updates and refresh the board state
+- [x] Add UI and E2E tests for the chat feature
 
 Tests:
 - Component tests for chat input and message rendering.

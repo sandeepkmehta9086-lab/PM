@@ -20,8 +20,11 @@ This document describes the current frontend implementation for the Project Mana
 - `src/components/LoginForm.tsx`
   - Submits the hardcoded MVP credentials to the backend and displays rejected-login feedback.
 
+- `src/components/ChatSidebar.tsx`
+  - Displays conversation history and sends prompts to the structured AI chat endpoint.
+
 - `src/components/KanbanBoard.tsx`
-  - Renders the API-backed board and emits drag-and-drop, rename, add, and delete changes.
+  - Renders the API-backed board, chat sidebar, and emits drag-and-drop, rename, add, and delete changes.
   - Uses `DndContext` and `DragOverlay`.
   - Builds UI with a single board, five columns, and an app shell.
 
@@ -53,10 +56,12 @@ This document describes the current frontend implementation for the Project Mana
     - Verifies successful and rejected login submissions.
   - `src/components/App.test.tsx`
     - Verifies that an authenticated session loads its saved board.
+  - `src/components/ChatSidebar.test.tsx`
+    - Verifies prompt submission and AI message rendering.
 
 - E2E tests
   - `frontend/tests/kanban.spec.ts`
-    - Verifies authentication, logout, card creation persistence, and drag-and-drop between columns.
+    - Verifies authentication, chat-driven board refresh, logout, card creation persistence, and drag-and-drop between columns.
 
 ## Scripts
 - `package.json`
@@ -69,4 +74,4 @@ This document describes the current frontend implementation for the Project Mana
 ## Notes for next work
 - `next.config.ts` configures a static export, which FastAPI serves from `frontend/out`.
 - The frontend uses authenticated board APIs to load and save the board.
-- Future work will add AI-driven board changes while preserving the existing UI patterns.
+- AI replies and board updates are applied immediately through the chat sidebar.
