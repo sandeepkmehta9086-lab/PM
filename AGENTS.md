@@ -32,6 +32,20 @@ For the MVP, this will run locally (in a docker container)
 
 A working MVP of the frontend has been built and is already in frontend. This is not yet designed for the Docker setup. It's a pure frontend-only demo.
 
+## Current implementation notes
+
+- The frontend is a standalone Next.js app under `frontend/`.
+- The homepage currently renders a client-only `KanbanBoard` component with local state, drag-and-drop, column rename, add card, and delete card behavior.
+- The board data model is defined in `frontend/src/lib/kanban.ts` and includes `columns`, `cards`, `moveCard`, and `createId` utilities.
+- Tests are already present for component behavior and drag-and-drop logic (`frontend/src/components/KanbanBoard.test.tsx`, `frontend/src/lib/kanban.test.ts`) plus Playwright e2e coverage (`frontend/tests/kanban.spec.ts`).
+- The Next.js app is statically exported and served by FastAPI at `/` in the Docker container.
+- Fake authentication uses `user` / `password`, HTTP-only in-memory session cookies, and a frontend login gate.
+- The current frontend does not yet persist board data through backend APIs.
+
+## Next work
+
+- Define the database schema, then add persistent per-user board APIs.
+
 ## Color Scheme
 
 - Accent Yellow: `#ecad0a` - accent lines, highlights

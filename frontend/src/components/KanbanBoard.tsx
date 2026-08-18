@@ -15,7 +15,11 @@ import { KanbanColumn } from "@/components/KanbanColumn";
 import { KanbanCardPreview } from "@/components/KanbanCardPreview";
 import { createId, initialData, moveCard, type BoardData } from "@/lib/kanban";
 
-export const KanbanBoard = () => {
+type KanbanBoardProps = {
+  onLogout?: () => void;
+};
+
+export const KanbanBoard = ({ onLogout }: KanbanBoardProps) => {
   const [board, setBoard] = useState<BoardData>(() => initialData);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
@@ -120,6 +124,15 @@ export const KanbanBoard = () => {
               </p>
             </div>
           </div>
+          {onLogout ? (
+            <button
+              className="self-start rounded-xl border border-[var(--stroke)] px-4 py-2 text-sm font-semibold text-[var(--navy-dark)] transition hover:border-[var(--secondary-purple)] hover:text-[var(--secondary-purple)]"
+              onClick={onLogout}
+              type="button"
+            >
+              Log out
+            </button>
+          ) : null}
           <div className="flex flex-wrap items-center gap-4">
             {board.columns.map((column) => (
               <div
