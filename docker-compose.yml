@@ -8,3 +8,8 @@ services:
     restart: unless-stopped
     environment:
       - PYTHONUNBUFFERED=1
+    volumes:
+      - app-data:/app/data
+
+volumes:
+  app-data:

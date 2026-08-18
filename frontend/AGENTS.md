@@ -7,7 +7,7 @@ This document describes the current frontend implementation for the Project Mana
 - Framework: Next.js 16.1.6
 - UI: React 19 with Tailwind CSS v4
 - Drag and drop: @dnd-kit core + sortable
-- State: client-only state in `KanbanBoard` using React `useState`
+- State: authenticated board data is loaded and saved through the backend API.
 - Data model: `BoardData` with columns and cards defined in `src/lib/kanban.ts`
 
 ## Core UI
@@ -15,13 +15,13 @@ This document describes the current frontend implementation for the Project Mana
   - Renders `App`, which gates the board on the current session.
 
 - `src/components/App.tsx`
-  - Checks the backend session, renders the login form for unauthenticated users, and handles logout.
+  - Checks the backend session, loads the board, saves board changes, and handles logout.
 
 - `src/components/LoginForm.tsx`
   - Submits the hardcoded MVP credentials to the backend and displays rejected-login feedback.
 
 - `src/components/KanbanBoard.tsx`
-  - Manages board state, drag-and-drop, column rename, add card, delete card, and logout control.
+  - Renders the API-backed board and emits drag-and-drop, rename, add, and delete changes.
   - Uses `DndContext` and `DragOverlay`.
   - Builds UI with a single board, five columns, and an app shell.
 
@@ -51,10 +51,12 @@ This document describes the current frontend implementation for the Project Mana
     - Verifies `moveCard` logic for reorder, moving between columns, and end-of-column drops.
   - `src/components/LoginForm.test.tsx`
     - Verifies successful and rejected login submissions.
+  - `src/components/App.test.tsx`
+    - Verifies that an authenticated session loads its saved board.
 
 - E2E tests
   - `frontend/tests/kanban.spec.ts`
-    - Verifies authentication, logout, card creation, and drag-and-drop between columns.
+    - Verifies authentication, logout, card creation persistence, and drag-and-drop between columns.
 
 ## Scripts
 - `package.json`
@@ -66,6 +68,5 @@ This document describes the current frontend implementation for the Project Mana
 
 ## Notes for next work
 - `next.config.ts` configures a static export, which FastAPI serves from `frontend/out`.
-- The frontend uses authentication APIs but does not yet load or save board data through an API.
-- It uses local client state only, so persistence and backend integration are not implemented.
-- Future work should preserve the current UI patterns while adding API calls, auth, and server-backed board state.
+- The frontend uses authenticated board APIs to load and save the board.
+- Future work will add AI-driven board changes while preserving the existing UI patterns.

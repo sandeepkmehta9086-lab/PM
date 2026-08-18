@@ -40,11 +40,12 @@ A working MVP of the frontend has been built and is already in frontend. This is
 - Tests are already present for component behavior and drag-and-drop logic (`frontend/src/components/KanbanBoard.test.tsx`, `frontend/src/lib/kanban.test.ts`) plus Playwright e2e coverage (`frontend/tests/kanban.spec.ts`).
 - The Next.js app is statically exported and served by FastAPI at `/` in the Docker container.
 - Fake authentication uses `user` / `password`, HTTP-only in-memory session cookies, and a frontend login gate.
-- The current frontend does not yet persist board data through backend APIs.
+- SQLite stores one JSON-backed board for each user, and the backend exposes authenticated board read/write APIs.
+- The frontend loads and saves board changes through the authenticated board APIs.
 
 ## Next work
 
-- Define the database schema, then add persistent per-user board APIs.
+- Add the OpenRouter-backed AI connectivity layer.
 
 ## Color Scheme
 

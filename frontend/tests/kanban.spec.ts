@@ -39,8 +39,16 @@ test("adds a card to a column", async ({ page }) => {
   await firstColumn.getByRole("button", { name: /add a card/i }).click();
   await firstColumn.getByPlaceholder("Card title").fill("Playwright card");
   await firstColumn.getByPlaceholder("Details").fill("Added via e2e.");
+  const saveRequest = page.waitForResponse(
+    (response) =>
+      response.url().endsWith("/api/board") &&
+      response.request().method() === "PUT"
+  );
   await firstColumn.getByRole("button", { name: /add card/i }).click();
+  await saveRequest;
   await expect(firstColumn.getByText("Playwright card")).toBeVisible();
+  await page.reload();
+  await expect(page.getByText("Playwright card")).toBeVisible();
 });
 
 test("moves a card between columns", async ({ page }) => {

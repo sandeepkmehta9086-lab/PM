@@ -110,10 +110,10 @@ Part 5: Database modeling
 - Ensure the database is created automatically if missing.
 
 Checklist:
-- [ ] Define SQL schema for users and board state
-- [ ] Document the schema in `docs/`
-- [ ] Implement automatic DB creation on startup
-- [ ] Use JSON storage for board payloads
+- [x] Define SQL schema for users and board state
+- [x] Document the schema in `docs/`
+- [x] Implement automatic DB creation on startup
+- [x] Use JSON storage for board payloads
 
 Tests:
 - Validate the schema document and the DB schema match.
@@ -132,10 +132,10 @@ Part 6: Backend
 - Ensure board updates are saved and can be reloaded.
 
 Checklist:
-- [ ] Add `GET /api/board` for the current user
-- [ ] Add `PUT /api/board` or `PATCH /api/board` to save board state
-- [ ] Implement DB persistence and user lookup
-- [ ] Add backend unit tests for API routes
+- [x] Add `GET /api/board` for the current user
+- [x] Add `PUT /api/board` or `PATCH /api/board` to save board state
+- [x] Implement DB persistence and user lookup
+- [x] Add backend unit tests for API routes
 
 Tests:
 - Backend tests for `GET /api/board` returning the current board.
@@ -155,10 +155,10 @@ Part 7: Frontend + Backend
 - Keep the existing UX and board interactions intact.
 
 Checklist:
-- [ ] Load board state from backend on app startup
-- [ ] Save board state to backend on relevant changes
-- [ ] Keep local drag/drop, rename, add, delete UX
-- [ ] Add paired frontend/backend integration tests
+- [x] Load board state from backend on app startup
+- [x] Save board state to backend on relevant changes
+- [x] Keep local drag/drop, rename, add, delete UX
+- [x] Add paired frontend/backend integration tests
 
 Tests:
 - Unit tests for API integration and board state flow.
